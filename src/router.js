@@ -6,11 +6,13 @@ const isLoggedIn = require('./middleware/isLoggedIn');
 // const updateContact = require('./routes/updateContact');
 // const deleteContact = require('./routes/deleteContact');
 
+const water_level = require('./routes/createContact');
+
 const router = express.Router();
 
 // router.post('/login', "require('./routes/login')");
 
-router.post('/contacts', isLoggedIn, "createContact");
+router.post('/water_level/:slno', isLoggedIn, water_level);
 router.get('/contacts',  isLoggedIn, "readContact");
 router.put('/contacts/:id', isLoggedIn, "updateContact");
 router.delete('/contacts/:id', isLoggedIn, "deleteContact");
