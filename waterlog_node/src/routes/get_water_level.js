@@ -1,13 +1,13 @@
 const WaterLevelModel = require('../models/waterLevel');
-const { body, validationResult } = require('express-validator');
+// const { body, validationResult } = require('express-validator');
 
 
 module.exports = async (req, res) => {
 
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ error: errors.array() })
-    }
+    // const errors = validationResult(req);
+    // if (!errors.isEmpty()) {
+    //     return res.status(400).json({ error: errors.array() })
+    // }
 
     const { sl_number, lastLevel, pumpState } = req.body;
     console.log(req.params?.slno)

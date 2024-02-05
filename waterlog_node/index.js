@@ -32,6 +32,13 @@ app.get('/', (req, res) => {
     res.send("backend is working")
 })
 
+app.use(
+    cors({
+        origin: ["http://localhost:3000", "http://localhost:3001", "*"],
+        allowedHeaders: "*",
+        // credentials: true
+    })
+)
 
 app.use(morgan('tiny'));
 
