@@ -15,11 +15,11 @@ const app = express();
 
 app.use(express.json());
 
-// app.use(cors({
-//     allowedHeaders: '*',
-//     origin: ["http://localhost:3000", "http://localhost:8080", "*"],
-//     credentials: true,
-// }));
+app.use(cors({
+    allowedHeaders: '*',
+    origin: ["http://localhost:3000", "http://localhost:8080", "*"],
+    credentials: true,
+}));
 
 const server = http.createServer((req, res) => {
     console.log("server started");
