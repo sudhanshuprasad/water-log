@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 
 const router = require('./src/router');
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3333;
 
 dotenv.config();
 
