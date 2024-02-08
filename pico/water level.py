@@ -58,24 +58,34 @@ while True:
         lcd.putstr(str((filtered_data-min)/(max-min)*100)+"%")
         
         #pump logic
-        if(water_percentage>=100):
+        if(water_percentage>=40):
             pump.off()
         if(water_percentage<20):
             pump.on()
         
         # send network request
         try:
-            requests.post("https://ntfy.sh/water_level",
-                                data=str((filtered_data-min)/(max-min)*100),
+#             requests.post("https://ntfy.sh/water_level",
+#                                 data=str((filtered_data-min)/(max-min)*100),
+#                                 headers={
+#                                     "Title": "water level: "+str((filtered_data-min)/(max-min)*100)+"%",
+#                                     "Priority": "5",
+#                                     "Tags": "rotating_light",
+#                                     })
+
+            post_data = ujson.dumps({"slno":"1234", "lastLevel":water_percentage})
+            res=requests.post("https://dull-erin-donkey-garb.cyclic.app/water_level/12345",
+                                data=post_data,
                                 headers={
-                                    "Title": "water level: "+str((filtered_data-min)/(max-min)*100)+"%",
-                                    "Priority": "5",
-                                    "Tags": "rotating_light",
+                                    'content-type': 'application/json',
                                     })
+            
+            print(res.text)
             print("Level detected, notification sent")
+            utime.sleep(8)
         except:
             print("error in post request")
-            utime.sleep(2)
+            utime.sleep(5)
             
         wait_time=0
     else:
