@@ -1,5 +1,5 @@
 const WaterLevelModel = require('../models/waterLevel');
-// const { body, validationResult } = require('express-validator');
+const { validationResult } = require('express-validator');
 
 
 module.exports = async (req, res) => {

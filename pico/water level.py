@@ -9,6 +9,8 @@ import urequests as requests
 min=10198
 max=11650
 
+pump = machine.Pin(15, machine.Pin.OUT)
+pump.off()
 analog_value = machine.ADC(28)
 filtered_data = analog_value.read_u16()
 
@@ -31,7 +33,7 @@ utime.sleep(3)
 try:
     lcd.clear()
     lcd.move_to(0,1)
-    lcd.putstr(str(wlan.isconnected()))
+    lcd.putstr("wifi :"+str(wlan.isconnected()))
     print(wlan.isconnected())
 except:
     lcd.clear()
@@ -46,12 +48,20 @@ while True:
     #print("ADC: ",reading)
     
     if(wait_time>100):
+        
+        water_percentage = (filtered_data-min)/(max-min)*100
         # print data on lcd
         lcd.clear()
         lcd.move_to(0,0)
         lcd.putstr('Water Level:')
         lcd.move_to(0,1)
         lcd.putstr(str((filtered_data-min)/(max-min)*100)+"%")
+        
+        #pump logic
+        if(water_percentage>=100):
+            pump.off()
+        if(water_percentage<20):
+            pump.on()
         
         # send network request
         try:
@@ -65,7 +75,7 @@ while True:
             print("Level detected, notification sent")
         except:
             print("error in post request")
-            #utime.sleep(2)
+            utime.sleep(2)
             
         wait_time=0
     else:
@@ -74,4 +84,3 @@ while True:
     print("Filtered: ",filtered_data)
     print("Percentage: ",(filtered_data-min)/(max-min)*100)
     utime.sleep(0.1)
-
