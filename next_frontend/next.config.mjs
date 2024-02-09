@@ -4,7 +4,7 @@ const nextConfig = {
     async rewrites() {
         return [
             {
-                source: '/api/:path*',
+                source: '*',
                 destination: 'https://dull-erin-donkey-garb.cyclic.app/*',
             },
         ]
