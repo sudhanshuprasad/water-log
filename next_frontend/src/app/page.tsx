@@ -1,7 +1,8 @@
 "use client"
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { Progress } from 'react-circle-progress-bar'
+// import { Progress } from 'react-circle-progress-bar'
+import {CircularProgress} from "@nextui-org/react";
 import { clearInterval } from "timers";
 
 export default function Home() {
@@ -35,7 +36,15 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
 
       <div>
-        <Progress progress={waterLevel} background="#bbbbbb" subtitle="water level" />
+      <CircularProgress
+      label="Speed"
+      size="lg"
+      value={waterLevel}
+      color="success"
+      formatOptions={{ style: "unit", unit: "kilometer" }}
+      showValueLabel={true}
+    />
+        {/* <Progress progress={waterLevel} background="#bbbbbb" subtitle="water level" /> */}
       </div>
 
       {/* <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
