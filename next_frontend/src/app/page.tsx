@@ -7,11 +7,22 @@ import { clearInterval } from "timers";
 
 export default function Home() {
 
-  const [waterLevel, setWaterLevel] = useState(10)
+  let deviceID = 1234
+  let url = `https://dull-erin-donkey-garb.cyclic.app/water_level/${deviceID}`
+  const [waterLevel, setWaterLevel] = useState(0)
+
 
   useEffect(() => {
-    let deviceID = 1234
-    let url = `https://dull-erin-donkey-garb.cyclic.app/water_level/${deviceID}`
+    
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          console.log(data)
+          setWaterLevel(data?.lastLevel)
+          console.log(parseFloat(waterLevel.toFixed(2)))
+        })
+        .catch(error => console.error('Error:', error));
+    
     const timeoutId = setInterval(() => {
       console.log("Hello, World!");
 
@@ -20,6 +31,7 @@ export default function Home() {
         .then(data => {
           console.log(data)
           setWaterLevel(data?.lastLevel)
+          console.log(parseFloat(waterLevel.toFixed(2)))
         })
         .catch(error => console.error('Error:', error));
 
@@ -47,7 +59,7 @@ export default function Home() {
       size="lg"
       value={parseFloat(waterLevel.toFixed(2))}
       color="success"
-      formatOptions={{ style: "unit", unit: "kilometer" }}
+      // formatOptions={{ style: "unit", unit: "%" }}
       showValueLabel={true}
     />
         {/* <Progress progress={waterLevel} background="#bbbbbb" subtitle="water level" /> */}
