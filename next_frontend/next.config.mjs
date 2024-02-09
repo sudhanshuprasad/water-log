@@ -1,6 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 
+    async rewrites() {
+        return [
+            {
+                source: '/api/:path*',
+                destination: 'https://dull-erin-donkey-garb.cyclic.app/*',
+            },
+        ]
+    },
+
     async headers() {
         return [
             {
