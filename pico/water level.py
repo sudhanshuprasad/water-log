@@ -27,7 +27,7 @@ lcd.putstr('Wifi Connecting')
 
 wlan = network.WLAN(network.STA_IF)
 wlan.active(True)
-wlan.connect("Hello","hello123")
+wlan.connect("Nikallode24g","nikallode")
 utime.sleep(3)
 
 try:
@@ -53,16 +53,20 @@ while True:
         # print data on lcd
         lcd.clear()
         lcd.move_to(0,0)
-        lcd.putstr('Water Level:')
-        lcd.move_to(0,1)
-        lcd.putstr(str((filtered_data-min)/(max-min)*100)+"%")
+        lcd.putstr('Water Level:'+str(round(water_percentage, 1)))
+#         lcd.move_to(0,1)
+#         lcd.putstr(str((filtered_data-min)/(max-min)*100)+"%")
         
         #pump logic
         if(water_percentage>=40):
             pump.off()
+            #lcd.putstr("pump off")
         if(water_percentage<20):
             pump.on()
+            #lcd.putstr("pump off")
         
+        lcd.move_to(0,1)
+        lcd.putstr("pump: "+str(pump.value()))
         # send network request
         try:
 #             requests.post("https://ntfy.sh/water_level",
@@ -73,8 +77,8 @@ while True:
 #                                     "Tags": "rotating_light",
 #                                     })
 
-            post_data = ujson.dumps({"slno":"1234", "lastLevel":water_percentage})
-            res=requests.post("https://dull-erin-donkey-garb.cyclic.app/water_level/12345",
+            post_data = ujson.dumps({"slno":"1234", "lastLevel":water_percentage, "pumpState":pump.value()})
+            res=requests.post("https://dull-erin-donkey-garb.cyclic.app/water_level/1234",
                                 data=post_data,
                                 headers={
                                     'content-type': 'application/json',
