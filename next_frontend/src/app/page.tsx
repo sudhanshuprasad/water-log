@@ -10,7 +10,7 @@ import { getWaterLevel } from "@/service/api";
 export default function Home() {
 
   let deviceID = 1234
-  let url = `https://dull-erin-donkey-garb.cyclic.app/water_level/${deviceID}`
+  let url = `https://dull-erin-donkey-garb.cyclic.app/api/water_level/${deviceID}`
   // let url = `https://www.google.com`
   const [waterLevel, setWaterLevel] = useState(0)
   
