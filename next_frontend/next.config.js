@@ -4,7 +4,7 @@ module.exports = {
         return [
             {
                 source: '/:path*',
-                destination: 'http://localhost:3333/api/:path*',
+                destination: 'https://dull-erin-donkey-garb.cyclic.app/api/:path*',
             },
         ]
     },
