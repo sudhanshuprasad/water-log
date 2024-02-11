@@ -13,8 +13,8 @@ export default function Home() {
   let url = `https://dull-erin-donkey-garb.cyclic.app/water_level/${deviceID}`
   // let url = `https://www.google.com`
   const [waterLevel, setWaterLevel] = useState(0)
-
-
+  
+  
   useEffect(() => {
     
     fetch(url,{
@@ -31,23 +31,24 @@ export default function Home() {
         })
         .catch(error => console.error('Error:', error));
     
-    const timeoutId = setInterval(() => {
-      console.log("Hello, World!");
 
-      // fetch(url)
-      //   .then(response => response.json())
-      //   .then(data => {
-      //     console.log(data)
-      //     setWaterLevel(data?.lastLevel)
-      //     console.log(parseFloat(waterLevel.toFixed(2)))
-      //   })
-      //   .catch(error => console.error('Error:', error));
+        const timeoutId = setInterval(() => {
+          console.log("Hello, World!");
+      
+          fetch(url)
+            .then(response => response.json())
+            .then(data => {
+              console.log(data)
+              setWaterLevel(data?.lastLevel)
+              console.log(parseFloat(waterLevel.toFixed(2)))
+            })
+            .catch(error => console.error('Error:', error));
+          // const data= getWaterLevel(1234)
+          // console.log("water level "+data)
+          // setWaterLevel(data)
+      
+        }, 7000);
 
-      setWaterLevel(getWaterLevel(1234))
-
-    }, 5000);
-
-    // Cleanup function to clear the timeout if the component unmounts
     return () => {
       console.log("return use effect")
       // clearInterval(timeoutId);

@@ -12,9 +12,9 @@ export const getWaterLevel = (slno:number) => {
     })
         .then(response => response.json())
         .then(data => {
-            console.log(data)
-            console.log(parseFloat(waterLevel.toFixed(2)))
-            waterLevel = data.waterLevel
+            console.log(data.lastLevel)
+            console.log(parseFloat(data.lastLevel.toFixed(2)))
+            waterLevel = data.lastLevel
         })
         .catch(error => console.error('Error:', error));
 
