@@ -12,6 +12,7 @@
     "@nextui-org/react": "^2.2.9",
     "framer-motion": "^11.0.3",
     "next": "14.1.0",
+    "next-cors": "^1.0.0",
     "react": "^18",
     "react-circle-progress-bar": "^0.1.4",
     "react-dom": "^18"

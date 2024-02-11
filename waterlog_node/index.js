@@ -21,6 +21,8 @@ app.use(cors({
     credentials: true,
 }));
 
+app.use('/api', router);
+
 const server = http.createServer((req, res) => {
     console.log("server started");
     res.statusCode = 200;
@@ -32,13 +34,13 @@ app.get('/', (req, res) => {
     res.send("backend is working")
 })
 
-app.use(
-    cors({
-        origin: ["http://localhost:3000", "http://localhost:3001", "*"],
-        allowedHeaders: "*",
-        // credentials: true
-    })
-)
+// app.use(
+//     cors({
+//         origin: ["http://localhost:3000", "http://localhost:3001", "*"],
+//         allowedHeaders: "*",
+//         // credentials: true
+//     })
+// )
 
 app.use(morgan('tiny'));
 

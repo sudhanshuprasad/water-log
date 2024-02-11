@@ -1,20 +1,28 @@
 "use client"
+
 import Image from "next/image";
 import { useEffect, useState } from "react";
 // import { Progress } from 'react-circle-progress-bar'
 import {CircularProgress} from "@nextui-org/react";
 import { clearInterval } from "timers";
+import { getWaterLevel } from "@/service/api";
 
 export default function Home() {
 
   let deviceID = 1234
-  let url = `https://dull-erin-donkey-garb.cyclic.app/water_level/${deviceID}`
+  // let url = `https://dull-erin-donkey-garb.cyclic.app/water_level/${deviceID}`
+  let url = `https://www.google.com`
   const [waterLevel, setWaterLevel] = useState(0)
 
 
   useEffect(() => {
     
-    fetch(url)
+    fetch("/",{
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      }})
         .then(response => response.json())
         .then(data => {
           console.log(data)
@@ -26,14 +34,16 @@ export default function Home() {
     const timeoutId = setInterval(() => {
       console.log("Hello, World!");
 
-      fetch(url)
-        .then(response => response.json())
-        .then(data => {
-          console.log(data)
-          setWaterLevel(data?.lastLevel)
-          console.log(parseFloat(waterLevel.toFixed(2)))
-        })
-        .catch(error => console.error('Error:', error));
+      // fetch(url)
+      //   .then(response => response.json())
+      //   .then(data => {
+      //     console.log(data)
+      //     setWaterLevel(data?.lastLevel)
+      //     console.log(parseFloat(waterLevel.toFixed(2)))
+      //   })
+      //   .catch(error => console.error('Error:', error));
+
+      console.log(getWaterLevel())
 
     }, 10000);
 

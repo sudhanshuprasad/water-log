@@ -5,7 +5,7 @@ const nextConfig = {
         return [
             {
                 source: '/:path*',
-                destination: 'https://dull-erin-donkey-garb.cyclic.app/*',
+                destination: 'https://dull-erin-donkey-garb.cyclic.app/:path*',
             },
         ]
     },
@@ -23,7 +23,11 @@ const nextConfig = {
                 ]
             }
         ]
-    }
+    },
+
+    // headers: {
+    //     'Access-Control-Allow-Origin': '*',
+    // },
 };
 
 export default nextConfig;
