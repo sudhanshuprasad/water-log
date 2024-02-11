@@ -1,13 +1,13 @@
-export const getWaterLevel = () => {
+export const getWaterLevel = (slno:number) => {
 
     let waterLevel = 0
-    // let url = `https://www.google.com`
+    let url = `https://www.google.com`
 
-    fetch("/1234", {
+    fetch(`https://dull-erin-donkey-garb.cyclic.app/water_level/${slno}`, {
         method: 'GET',
         headers: {
-            // 'Content-Type': 'application/json',
-            // 'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
         }
     })
         .then(response => response.json())

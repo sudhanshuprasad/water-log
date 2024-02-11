@@ -10,14 +10,14 @@ import { getWaterLevel } from "@/service/api";
 export default function Home() {
 
   let deviceID = 1234
-  // let url = `https://dull-erin-donkey-garb.cyclic.app/water_level/${deviceID}`
-  let url = `https://www.google.com`
+  let url = `https://dull-erin-donkey-garb.cyclic.app/water_level/${deviceID}`
+  // let url = `https://www.google.com`
   const [waterLevel, setWaterLevel] = useState(0)
 
 
   useEffect(() => {
     
-    fetch("/",{
+    fetch(url,{
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -43,9 +43,9 @@ export default function Home() {
       //   })
       //   .catch(error => console.error('Error:', error));
 
-      console.log(getWaterLevel())
+      setWaterLevel(getWaterLevel(1234))
 
-    }, 10000);
+    }, 5000);
 
     // Cleanup function to clear the timeout if the component unmounts
     return () => {
