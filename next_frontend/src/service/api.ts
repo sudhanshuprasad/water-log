@@ -8,6 +8,7 @@ export const getWaterLevel = (slno:number) => {
         headers: {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*',
+            "Access-Control-Allow-Methods":"GET, POST, PUT, DELETE, OPTIONS"
         }
     })
         .then(response => response.json())
