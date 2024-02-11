@@ -3,7 +3,7 @@ export const getWaterLevel = (slno:number) => {
     let waterLevel = 0
     let url = `https://www.google.com`
 
-    fetch(`https://dull-erin-donkey-garb.cyclic.app/api/water_level/${slno}`, {
+    fetch(`/water_level/${slno}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
