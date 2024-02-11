@@ -47,7 +47,7 @@ export default function Home() {
           // console.log("water level "+data)
           // setWaterLevel(data)
       
-        }, 7000);
+        }, 10000);
 
     return () => {
       console.log("return use effect")
