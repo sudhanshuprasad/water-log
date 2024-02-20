@@ -5,9 +5,10 @@ import network
 from pico_i2c_lcd import I2cLcd
 from machine import I2C
 import urequests as requests
+import ujson
 
-min=10198
-max=11650
+min=10310
+max=11957
 
 pump = machine.Pin(15, machine.Pin.OUT)
 pump.off()
@@ -33,7 +34,7 @@ utime.sleep(3)
 try:
     lcd.clear()
     lcd.move_to(0,1)
-    lcd.putstr("wifi :"+str(wlan.isconnected()))
+    lcd.putstr("wifi: "+str(wlan.isconnected()))
     print(wlan.isconnected())
 except:
     lcd.clear()
