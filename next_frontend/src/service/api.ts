@@ -1,7 +1,7 @@
 export const getWaterLevel = (slno:number) => {
 
     let waterLevel = 0
-    let url = `https://www.google.com`
+    // let url = `https://www.google.com`
 
     fetch(`/water_level/${slno}`, {
         method: 'GET',

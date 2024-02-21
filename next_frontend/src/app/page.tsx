@@ -6,13 +6,17 @@ import { useEffect, useState } from "react";
 import {CircularProgress} from "@nextui-org/react";
 import { clearInterval } from "timers";
 import { getWaterLevel } from "@/service/api";
+import PumpState from "./pumpState/page";
+import WaterMeter from "./waterMeter/page";
+
 
 export default function Home() {
 
-  let deviceID = 1234
+  let deviceID = 123098765
   let url = `/water_level/${deviceID}`
   // let url = `https://www.google.com`
   const [waterLevel, setWaterLevel] = useState(0)
+  const [pumpState, setPumpState] = useState(false)
   
   
   useEffect(() => {
@@ -26,14 +30,15 @@ export default function Home() {
         .then(response => response.json())
         .then(data => {
           console.log(data)
+          setPumpState(data?.pumpState)
           setWaterLevel(data?.lastLevel)
-          console.log(parseFloat(waterLevel.toFixed(2)))
+          // console.log(parseFloat(waterLevel.toFixed(2)))
         })
         .catch(error => console.error('Error:', error));
     
 
         const timeoutId = setInterval(() => {
-          console.log("Hello, World!");
+          // console.log("Hello, World!");
       
           fetch(url,{
             method: 'GET',
@@ -44,27 +49,30 @@ export default function Home() {
             .then(response => response.json())
             .then(data => {
               console.log(data)
+              setPumpState(data?.pumpState)
               setWaterLevel(data?.lastLevel)
-              console.log(parseFloat(waterLevel.toFixed(2)))
+              // console.log(parseFloat(waterLevel.toFixed(2)))
             })
             .catch(error => console.error('Error:', error));
           // const data= getWaterLevel(1234)
           // console.log("water level "+data)
           // setWaterLevel(data)
       
-        }, 20000);
+        }, 2000);
 
     return () => {
       console.log("return use effect")
       // clearInterval(timeoutId);
     }
-  }, [setWaterLevel]);
+  }, [setWaterLevel, setPumpState]);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
 
       <div>
-      <CircularProgress
+        <WaterMeter waterLevel={waterLevel}/>
+        <PumpState state={pumpState}/>
+      {/* <CircularProgress
       classNames={{
         svg: "w-36 h-36 drop-shadow-md",
         indicator: "stroke-white",
@@ -77,7 +85,7 @@ export default function Home() {
       color="success"
       // formatOptions={{ style: "unit", unit: "%" }}
       showValueLabel={true}
-    />
+    /> */}
         {/* <Progress progress={waterLevel} background="#bbbbbb" subtitle="water level" /> */}
       </div>
 
