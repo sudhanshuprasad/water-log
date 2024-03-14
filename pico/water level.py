@@ -11,24 +11,31 @@ min=9030
 max=11957
 
 pump = Pin(15, Pin.OUT)
-pump = Pin(21, Pin.IN, Pin.PULL_UP)
-pump = machine.Pin(22, Pin.IN, Pin.PULL_UP)
+#button1 = Pin(21, Pin.IN, Pin.PULL_UP)
+#pump = machine.Pin(22, Pin.IN, Pin.PULL_UP)
 pump.off()
 pump_flag="none"
+pump_flag_reset=False
 analog_value = ADC(28)
 filtered_data = analog_value.read_u16()
 
 button1 = Pin(21,Pin.IN,Pin.PULL_UP)
 button2 = Pin(22,Pin.IN,Pin.PULL_UP)
-button3 = Pin(2,Pin.IN,Pin.PULL_UP)
+button3 = Pin(26,Pin.IN,Pin.PULL_UP)
 
 def on_button(button1):
     print("on button pressed")
-    on_button="on"
+    global pump_flag
+    pump_flag="on"
+    global pump
+    pump.on()
 
 def off_button(button2):
     print("off button pressed")
+    global pump_flag
     pump_flag="off"
+    global pump
+    pump.off()
 
 button1.irq(trigger= Pin.IRQ_FALLING, handler=on_button)
 button2.irq(trigger= Pin.IRQ_FALLING, handler=off_button)
@@ -74,9 +81,9 @@ while True:
         lcd.putstr('Water Level:'+str(round(water_percentage, 1)))
 #         lcd.move_to(0,1)
 #         lcd.putstr(str((filtered_data-min)/(max-min)*100)+"%")
-        
+        print(pump_flag)
         #pump logic
-        if(water_percentage>=40):
+        if(water_percentage>=80):
             pump.off()
             pump_flag="off"
             #lcd.putstr("pump off")
@@ -98,7 +105,7 @@ while True:
 #                                     })
 
             post_data = ujson.dumps({"slno":"1234", "lastLevel":water_percentage, "pumpState":pump.value()})
-            res=requests.post("https://dull-erin-donkey-garb.cyclic.app/water_level/1234",
+            res=requests.post("aahttps://dull-erin-donkey-garb.cyclic.app/water_level/1234",
                                 data=post_data,
                                 headers={
                                     'content-type': 'application/json',
