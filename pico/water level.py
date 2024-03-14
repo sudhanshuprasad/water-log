@@ -1,4 +1,4 @@
-import machine
+from machine import Pin, ADC
 import utime
 import _thread
 import network
@@ -7,17 +7,34 @@ from machine import I2C
 import urequests as requests
 import ujson
 
-min=10310
+min=9030
 max=11957
 
-pump = machine.Pin(15, machine.Pin.OUT)
+pump = Pin(15, Pin.OUT)
+pump = Pin(21, Pin.IN, Pin.PULL_UP)
+pump = machine.Pin(22, Pin.IN, Pin.PULL_UP)
 pump.off()
-analog_value = machine.ADC(28)
+pump_flag="none"
+analog_value = ADC(28)
 filtered_data = analog_value.read_u16()
 
+button1 = Pin(21,Pin.IN,Pin.PULL_UP)
+button2 = Pin(22,Pin.IN,Pin.PULL_UP)
+button3 = Pin(2,Pin.IN,Pin.PULL_UP)
+
+def on_button(button1):
+    print("on button pressed")
+    on_button="on"
+
+def off_button(button2):
+    print("off button pressed")
+    pump_flag="off"
+
+button1.irq(trigger= Pin.IRQ_FALLING, handler=on_button)
+button2.irq(trigger= Pin.IRQ_FALLING, handler=off_button)
 #_thread.start_new_thread(second_thread, ())
 
-i2c = I2C(id=0,scl=machine.Pin(1),sda=machine.Pin(0),freq=100000)
+i2c = I2C(id=0,scl=Pin(1),sda=Pin(0),freq=100000)
 lcd = I2cLcd(i2c, 0x27, 2, 16)
 
 # connect to wifi
@@ -61,13 +78,15 @@ while True:
         #pump logic
         if(water_percentage>=40):
             pump.off()
+            pump_flag="off"
             #lcd.putstr("pump off")
         if(water_percentage<20):
             pump.on()
+            pump_flag="on"
             #lcd.putstr("pump off")
         
         lcd.move_to(0,1)
-        lcd.putstr("pump: "+str(pump.value()))
+        lcd.putstr("pump: "+str(pump_flag))
         # send network request
         try:
 #             requests.post("https://ntfy.sh/water_level",
@@ -96,6 +115,7 @@ while True:
     else:
         wait_time=wait_time+1
         
-    print("Filtered: ",filtered_data)
-    print("Percentage: ",(filtered_data-min)/(max-min)*100)
+    #print("Filtered: ",filtered_data)
+    #print("Percentage: ",(filtered_data-min)/(max-min)*100)
     utime.sleep(0.1)
+
