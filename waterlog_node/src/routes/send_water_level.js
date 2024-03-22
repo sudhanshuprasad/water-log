@@ -1,6 +1,5 @@
 const WaterLevelModel = require('../models/waterLevel');
 
-
 module.exports = async (req, res) => {
 
     const slno = req.params?.slno
