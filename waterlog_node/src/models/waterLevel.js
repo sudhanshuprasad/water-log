@@ -10,18 +10,19 @@ const WaterLevel = new mongoose.Schema({
         required: true,
         unique: true
     },
-    lastOnline:{
+    lastOnline: {
         type: String,
         required: true,
         default: Date
     },
-    lastLevel:{
+    lastLevel: {
         type: Number,
-        default: ()=>{0},
+        default: () => { 0 },
     },
-    pumpState:{
+    pumpState: {
         type: Boolean,
-        default: ()=>{false},    }
+        default: () => { false },
+    }
 });
 
 const WaterLevelModel = mongoose.model('WaterLevel', WaterLevel);
