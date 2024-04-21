@@ -1,4 +1,5 @@
 const WaterLevelModel = require('../models/waterLevel');
+const WifiCredentialsModel = require('../models/wifiCredentials');
 // const { validationResult } = require('express-validator');
 
 
@@ -10,7 +11,7 @@ module.exports = async (req, res) => {
     // }
 
     const { sl_number, lastLevel, pumpState } = req.body;
-    console.log(req.params?.slno)
+    // console.log(req.params?.slno)
     // console.log(req.body)
 
     const slno = req.params?.slno
@@ -23,13 +24,23 @@ module.exports = async (req, res) => {
 
         //if found, update the entry
         if (dbdata) {
-            
+
+            const data = {
+                lastLevel, pumpState, lastOnline: Date()
+            }
+
             // recieve data in the form of enum if the user wants to turn the pump on, turn it off or keep the current state of the pump
 
-            const newdata = await WaterLevelModel.findByIdAndUpdate(dbdata?._id, { lastLevel, pumpState, lastOnline: Date() }, { new: true })
-            // console.log(newdata)
+            const newData = await WaterLevelModel.findByIdAndUpdate(dbdata?._id, data, { new: true })
+            const newWifiData = await WifiCredentialsModel.findOne({ slno })
 
-            return res.json(newdata);
+            const obj = {
+                lastOnline: newData.lastOnline,
+                lastLevel: newData.lastLevel,
+                ssid: newWifiData.ssid,
+                password: newWifiData.password
+            }
+            return res.json(obj);
         }
 
         // if not then create new entry
