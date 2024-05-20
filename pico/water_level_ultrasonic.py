@@ -43,20 +43,66 @@ button1 = Pin(21,Pin.IN,Pin.PULL_UP)
 button2 = Pin(22,Pin.IN,Pin.PULL_UP)
 button3 = Pin(26,Pin.IN,Pin.PULL_UP)
 button4 = Pin(27,Pin.IN,Pin.PULL_UP)
+button5 = Pin(28,Pin.IN,Pin.PULL_UP)
 
 def on_button(button1):
-    print("on button pressed")
-    global pump_flag
-    pump_flag="on"
-    global pump
-    pump.on()
+    
+    if(button5.value()):
+        print("main fn")
+
+        print("on button pressed")
+        global pump_flag
+        pump_flag="on"
+        global pump
+        pump.on()
+    
+    else:
+        print("alt fn")
+        global max_point
+        max_point=filtered_data
+        print("min"+str(min_point))
+        print("max"+str(max_point))
+        try:
+            with open('savedata.json', 'w') as f:
+                ujson.dump({
+                    "min":min_point,
+                    "max":max_point
+                    },f)
+                
+        except:
+                print("Error! Could not save")
+        print("testing max calibration ponit")
+
 
 def off_button(button2):
-    print("off button pressed")
-    global pump_flag
-    pump_flag="off"
-    global pump
-    pump.off()
+    if(button5.value()):
+        print("main fn")
+
+        print("off button pressed")
+        global pump_flag
+        pump_flag="off"
+        global pump
+        pump.off()
+        
+    else:
+        global min_point
+        min_point=filtered_data
+        print("min"+str(min_point))
+        print("max"+str(max_point))
+        
+        try:
+            with open('savedata.json', 'w') as f:
+                ujson.dump({
+                    "min":min_point,
+                    "max":max_point
+                    },f)
+            
+        except:
+                print("Error! Could not save")
+         
+        print("testing min calibration ponit")
+ 
+
 
 def calibrate_min(button3):
 #     try:
@@ -129,8 +175,9 @@ def connect_to_wifi():
 
 button1.irq(trigger= Pin.IRQ_FALLING, handler=on_button)
 button2.irq(trigger= Pin.IRQ_FALLING, handler=off_button)
-button3.irq(trigger= Pin.IRQ_FALLING, handler=calibrate_min)
-button4.irq(trigger= Pin.IRQ_FALLING, handler=calibrate_max)
+# button3.irq(trigger= Pin.IRQ_FALLING, handler=calibrate_min)
+# button4.irq(trigger= Pin.IRQ_FALLING, handler=calibrate_max)
+# button5.irq(trigger= Pin.IRQ_FALLING, handler=new_off)
 
 #_thread.start_new_thread(connect_to_wifi, ())
 
@@ -148,7 +195,7 @@ def ultra():
         signalon = utime.ticks_us()
     timepassed = signalon - signaloff
     distance = (timepassed * 0.0343) / 2
-    print("The distance from object is ",distance,"cm")
+#     print("The distance from object is ",distance,"cm")
     return distance
 
 i2c = I2C(id=1,scl=Pin(19),sda=Pin(18),freq=100000)
@@ -186,7 +233,7 @@ while True:
     #reading = analog_value.read_u16()
     reading = ultra()
     filtered_data = (0.95*filtered_data)+(0.05*reading)
-    print("ultrasonic: ",filtered_data)
+#     print("ultrasonic: ",filtered_data)
     
     if(wait_time>100):
         water_percentage
