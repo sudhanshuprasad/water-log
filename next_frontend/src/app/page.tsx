@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import {CircularProgress} from "@nextui-org/react";
 import { clearInterval } from "timers";
 import { getWaterLevel } from "@/service/api";
-import PumpState from "./pumpState/page";
+// import PumpState from "./pumpState/page";
 import WaterMeter from "./waterMeter/page";
 import OnButton from "./components/onButton/page";
 import OffButton from "./components/offButton/page";
@@ -74,7 +74,7 @@ export default function Home() {
       <div>
         test home
         <WaterMeter waterLevel={waterLevel}/>
-        <PumpState state={pumpState}/>
+        {/* <PumpState state={pumpState}/> */}
         <OnButton/>
         <OffButton/>
       {/* <CircularProgress
