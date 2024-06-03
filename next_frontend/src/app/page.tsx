@@ -8,6 +8,8 @@ import { clearInterval } from "timers";
 import { getWaterLevel } from "@/service/api";
 import PumpState from "./pumpState/page";
 import WaterMeter from "./waterMeter/page";
+import OnButton from "./components/onButton/page";
+import OffButton from "./components/offButton/page";
 
 
 export default function Home() {
@@ -70,8 +72,11 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
 
       <div>
+        test home
         <WaterMeter waterLevel={waterLevel}/>
         <PumpState state={pumpState}/>
+        <OnButton/>
+        <OffButton/>
       {/* <CircularProgress
       classNames={{
         svg: "w-36 h-36 drop-shadow-md",
