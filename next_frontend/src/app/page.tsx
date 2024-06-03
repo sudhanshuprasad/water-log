@@ -73,7 +73,7 @@ export default function Home() {
 
       <div>
         test home
-        <WaterMeter waterLevel={waterLevel}/>
+        <WaterMeter waterLevel={waterLevel || 0}/>
         {/* <PumpState state={pumpState}/> */}
         <OnButton/>
         <OffButton/>
