@@ -14,7 +14,7 @@ import OffButton from "./components/offButton/page";
 
 export default function Home() {
 
-  let deviceID = 123098765
+  let deviceID = 1234
   let url = `/water_level/${deviceID}`
   // let url = `https://www.google.com`
   const [waterLevel, setWaterLevel] = useState(0)
