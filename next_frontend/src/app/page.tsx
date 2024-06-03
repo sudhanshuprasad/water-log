@@ -72,9 +72,9 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
 
       <div>
-        test home
         <WaterMeter waterLevel={waterLevel || 0}/>
         {/* <PumpState state={pumpState}/> */}
+
         <OnButton/>
         <OffButton/>
       {/* <CircularProgress
