@@ -4,8 +4,8 @@ module.exports = {
         return [
             {
                 source: '/:path*',
-                destination: 'http://localhost:3333/api/:path*',
-                // destination: 'https://dull-erin-donkey-garb.cyclic.app/api/:path*',
+                // destination: 'http://localhost:3333/api/:path*',
+                destination: 'https://water-log-production.up.railway.app/api/:path*',
             },
         ]
     },
