@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import {CircularProgress} from "@nextui-org/react";
 import { clearInterval } from "timers";
 import { getWaterLevel } from "@/service/api";
-import PumpState from "./pumpState/page";
+// import PumpState from "./pumpState/page";
 import WaterMeter from "./waterMeter/page";
 import OnButton from "./components/onButton/page";
 import OffButton from "./components/offButton/page";
@@ -14,7 +14,7 @@ import OffButton from "./components/offButton/page";
 
 export default function Home() {
 
-  let deviceID = 123098765
+  let deviceID = 1234
   let url = `/water_level/${deviceID}`
   // let url = `https://www.google.com`
   const [waterLevel, setWaterLevel] = useState(0)
@@ -72,9 +72,9 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
 
       <div>
-        test home
-        <WaterMeter waterLevel={waterLevel}/>
-{/*         <PumpState state={pumpState}/> */}
+        <WaterMeter waterLevel={waterLevel || 0}/>
+        {/* <PumpState state={pumpState}/> */}
+
         <OnButton/>
         <OffButton/>
       {/* <CircularProgress
