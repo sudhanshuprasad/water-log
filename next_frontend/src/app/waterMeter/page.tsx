@@ -15,7 +15,7 @@ const WaterMeter = (props: any) => {
                 }}
                 label="Water Level"
                 size="lg"
-                value={parseFloat(props.waterLevel.toFixed(2))}
+                value={parseFloat(props.waterLevel?.toFixed(2))}
                 color="default"
                 // formatOptions={{ style: "unit", unit: "%" }}
                 showValueLabel={true}
@@ -23,7 +23,7 @@ const WaterMeter = (props: any) => {
             <CircularProgress
                 aria-label="Loading..."
                 size="lg"
-                value={parseFloat(props.waterLevel.toFixed(2))}
+                value={parseFloat(props.waterLevel?.toFixed(2))}
                 color="warning"
                 showValueLabel={true}
             />
