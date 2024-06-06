@@ -1,5 +1,5 @@
-export const fetchWaterlevel = async () => {
-    let deviceID = 1234
+export const getWaterlevel = async (deviceID:number) => {
+    // let deviceID = 1234
 
     let data
     let url = `/water_level/${deviceID}`
@@ -15,7 +15,7 @@ export const fetchWaterlevel = async () => {
         .then(level => {
             // console.log(level)
             data = level
-            // console.log(data)
+            // console.logn (data)
         })
         .catch(err => {
             // console.error('Error:', err)

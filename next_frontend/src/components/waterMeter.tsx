@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 const WaterMeter = (props: any) => {
 
     return (
-        <div>
+        <div className='text-center m-4 mb-10'>
             <CircularProgress
                 classNames={{
                     svg: "w-36 h-36 drop-shadow-md",
@@ -20,13 +20,13 @@ const WaterMeter = (props: any) => {
                 // formatOptions={{ style: "unit", unit: "%" }}
                 showValueLabel={true}
             />
-            <CircularProgress
+            {/* <CircularProgress
                 aria-label="Loading..."
                 size="lg"
                 value={parseFloat(props.waterLevel?.toFixed(2))}
                 color="warning"
                 showValueLabel={true}
-            />
+            /> */}
         </div>
     )
 }
