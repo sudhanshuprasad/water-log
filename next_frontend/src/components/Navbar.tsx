@@ -93,7 +93,7 @@ const Navbar = () => {
                     </Toolbar>
                 </AppBar>
             </Box>
-            <FormGroup>
+            {/* <FormGroup>
                 <FormControlLabel
                     control={
                         <Switch
@@ -105,7 +105,7 @@ const Navbar = () => {
                     }
                     label={auth ? 'Logout' : 'Login'}
                 />
-            </FormGroup>
+            </FormGroup> */}
         </div>
     )
 }
