@@ -3,6 +3,10 @@ module.exports = {
     async rewrites() {
         return [
             {
+                source: '/device/:path*',
+                destination: '/device/:path*',
+            },
+            {
                 source: '/:path*',
                 // destination: 'http://localhost:3333/api/:path*',
                 destination: 'https://water-log-production.up.railway.app/api/:path*',
