@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 const WaterMeter = (props: any) => {
 
     return (
-        <div /* className='text-center m-4 mb-10' */>
+        <div className='text-center m-4 mb-10 flex-column'>
             <CircularProgress
                 classNames={{
                     svg: "w-36 h-36 drop-shadow-md",
