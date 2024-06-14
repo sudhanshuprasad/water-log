@@ -35,11 +35,16 @@ const Navbar = () => {
 
     return (
         <div>
-            
+
+            {/* the sidebar */}
             <Drawer open={open} onClose={toggleDrawer(false)}>
-                <DrawerList setDrawer={toggleDrawer}/>
+                <DrawerList setDrawer={toggleDrawer} />
             </Drawer>
 
+            {/* navbar */}
+            {/* <div style={{ zIndex: 10, position: "relative", backgroundColor: "red" }}>
+                test
+            </div> */}
             <Box sx={{ flexGrow: 1 }}>
                 <AppBar position="static">
                     <Toolbar>

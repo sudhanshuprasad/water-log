@@ -1,45 +1,116 @@
 "use client"
 import LastOnline from '@/components/LastOnline'
 import Navbar from '@/components/Navbar'
+import OffButton from '@/components/pump/OffButtom'
+import OnButton from '@/components/pump/OnButtom'
+import PumpState from '@/components/pump/pumpState'
 import WaterMeter from '@/components/waterMeter'
 import { getWaterlevel } from '@/service/getData/getData'
-import React, { useEffect, useState } from 'react'
+import { Grid, Slider } from '@mui/material'
+import { useEffect, useState } from 'react'
 
 interface Props {
     params: { deviceId: number }
 }
 
 interface Data {
-    lastLevel:number;
-    lastOnline:string;
+    lastLevel: number;
+    lastOnline: string;
 }
+
+function valuetext(value: number) {
+    return `${value}°C`;
+}
+
+const marks = [
+    {
+        value: 0,
+        label: '0%',
+    },
+    {
+        value: 20,
+        label: '20%',
+    },
+    {
+        value: 80,
+        label: '80%',
+    },
+    {
+        value: 100,
+        label: '100%',
+    },
+];
 
 const Device = ({ params }: Props) => {
 
     const [waterLevel, setWaterLevel] = useState(0)
     const [lastOnline, setLastOnline] = useState("Never Online")
     const [pumpState, setPumpState] = useState(false)
+    const [value, setValue] = useState<number[]>([20, 37]);
 
-    useEffect(()=>{
-        const fetchData=async()=>{
-            let data:any
+    const handleChange = (event: Event, newValue: number | number[]) => {
+        setValue(newValue as number[]);
+    };
+
+    useEffect(() => {
+        const fetchData = async () => {
+            let data: any
             data = await getWaterlevel(params?.deviceId)
             // console.log("data: ",data)
             setWaterLevel(data?.lastLevel)
             setLastOnline(data?.lastOnline)
+            setPumpState(data?.pumpState)
         }
-        
+
         fetchData()
-        setInterval(()=>{
+        setInterval(() => {
             fetchData()
-        },5000)
-    },[])
+        }, 5000)
+    }, [])
 
     return (
-        <div>
-            <Navbar/>
-            <WaterMeter waterLevel={waterLevel || 0} />
-            <LastOnline lastOnline={lastOnline} />
+        <div className=' bg-slate-400' style={{height:"100vh"}}>
+            <Navbar />
+
+
+            <Grid container spacing={2}>
+
+
+                <Grid item xs={9}>
+
+                    <WaterMeter waterLevel={waterLevel || 0} />
+                    <PumpState state={pumpState} />
+                    <LastOnline lastOnline={lastOnline} />
+                    <OnButton />
+                    <OffButton />
+
+                </Grid>
+
+
+                <Grid item xs={3}>
+                    <div className='mt-5' style={{ height: "90%" }}>
+                        <Slider
+                            getAriaLabel={() => 'Temperature'}
+                            orientation="vertical"
+                            getAriaValueText={valuetext}
+                            defaultValue={[20, 80]}
+                            valueLabelDisplay="auto"
+                            marks={marks}
+                        />
+                    </div>
+                </Grid>
+
+
+            </Grid>
+
+
+            {/* <Slider
+                getAriaLabel={() => 'Tank range'}
+                value={value}
+                onChange={handleChange}
+                valueLabelDisplay="auto"
+                getAriaValueText={valuetext}
+            /> */}
         </div>
     )
 }

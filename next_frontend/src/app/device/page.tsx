@@ -4,7 +4,7 @@ const DeviceHome = () => {
     return (
         <div className='flex items-center justify-center h-screen'>
             <h1 className=''>
-                Please go to and scan the yor on your device
+                Please go to and scan the QR on your device
             </h1>
         </div>
     )

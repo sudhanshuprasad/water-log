@@ -1,6 +1,7 @@
 // next.config.js
 module.exports = {
     async rewrites() {
+        // console.log(`${process.env.SERVERURL}/api/:path*`)
         return [
             {
                 source: '/device/:path*',
@@ -9,7 +10,8 @@ module.exports = {
             {
                 source: '/:path*',
                 // destination: 'http://localhost:3333/api/:path*',
-                destination: 'https://water-log-production.up.railway.app/api/:path*',
+                destination: `${process.env.SERVERURL}/api/:path*`,
+                // destination: 'https://water-log-production.up.railway.app/api/:path*',
 
             },
         ]
