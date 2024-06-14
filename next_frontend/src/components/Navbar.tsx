@@ -53,7 +53,7 @@ const Navbar = () => {
                             <MenuIcon onClick={toggleDrawer(true)} />
                         </IconButton>
                         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                            Photos
+                            Neer Rakshak
                         </Typography>
                         {auth && (
                             <div>
