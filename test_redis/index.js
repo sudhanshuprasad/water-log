@@ -5,7 +5,7 @@ const express = require('express');
 
 const redisclient = require('./redisConnect');
 
-const PORT = 3001;
+const PORT = 3000;
 const app = express();
 
 app.use(express.json());

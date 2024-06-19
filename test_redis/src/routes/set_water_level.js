@@ -1,3 +1,4 @@
+const redisclient = require('../../redisConnect');
 
 module.exports = async (req, res) => {
 
@@ -15,7 +16,9 @@ module.exports = async (req, res) => {
     try {
 
         //look for the serial number in db
-
+        const dbdata = await redisclient.hSet(`slno:${slno}`, { lastLevel: 12, lastOnline: Date.now() })
+        const allHashMap = await redisclient.keys('slno:*')
+        res.status(200).json({ "db data": allHashMap });
 
     } catch (error) {
         res.status(500).json({ "error": error.message });
