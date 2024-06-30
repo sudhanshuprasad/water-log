@@ -14,24 +14,12 @@ module.exports = async (req, res) => {
     // console.log({body:req.body})
 
     try {
-
         //look for the serial number in db
-        // const dbdata = await WifiCredentialsModel.findOne({ slno })
-
-        //if found, update the entry
-        // if (dbdata) {
-        //     const newdata = await WifiCredentialsModel.findByIdAndUpdate(dbdata?._id, data, { new: true })
-        //     return res.json(newdata);
-        // }
-
-        // if not then create new entry
-        // const contact = new WifiCredentialsModel({
-        //     slno: slno,
-        //     ssid: ssid,
-        //     password: password,
-        // })
-        // const newData = await contact.save();
-        // res.json(newData);
+        const dbdata = await redisclient.hSet(`slno:${slno}`, { ssid: `${ssid}`, password: `${password}` })
+        console.log(dbdata)
+        
+        // const newdata = await WaterLevelModel.findById(dbdata?._id)
+        return res.json(dbdata);
 
         return res.status(500).json({ message: "data is not found" });
 

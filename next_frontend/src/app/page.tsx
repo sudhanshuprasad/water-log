@@ -1,14 +1,11 @@
 "use client"
 
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import WaterMeter from "../components/waterMeter";
-import OnButton from "../components/pump/OnButtom";
-import OffButton from "../components/pump/OffButtom";
-import GroundWater from "../components/GroundWater";
 import LastOnline from "../components/LastOnline";
 import Navbar from "@/components/Navbar";
-import PumpState from "@/components/pump/pumpState";
+import { Button } from "@nextui-org/react";
+import { RegisterLink, LoginLink } from "@kinde-oss/kinde-auth-nextjs/components";
 
 
 export default function Home() {
@@ -63,7 +60,7 @@ export default function Home() {
       // console.log("water level "+data)
       // setWaterLevel(data)
 
-    }, 20000);
+    }, 100000);
 
     return () => {
       console.log("return use effect")
@@ -77,6 +74,18 @@ export default function Home() {
       <div>
         <WaterMeter waterLevel={waterLevel || 0} />
         <LastOnline lastOnline={lastOnline} />
+
+        <div className="text-center m-5">
+          <LoginLink>
+            <Button className='w-40 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Login</Button>
+          </LoginLink>
+        </div>
+
+        <div className="text-center m-5">
+          <RegisterLink>
+            <Button className='w-40 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Sign Up</Button>
+          </RegisterLink>
+        </div>
 
       </div>
 

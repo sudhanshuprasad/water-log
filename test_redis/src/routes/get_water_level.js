@@ -1,4 +1,4 @@
-const WaterLevelModel = require('../models/waterLevel');
+const redisclient = require('../../redisConnect');
 
 module.exports = async (req, res) => {
 
@@ -7,16 +7,16 @@ module.exports = async (req, res) => {
     try {
 
         //look for the serial number in db
-        const dbdata = await WaterLevelModel.findOne({ slno })
-
+        const dbdata = await redisclient.hGetAll(`slno:${slno}`)
+        console.log(dbdata)
         //if found, update the entry
-        if (dbdata) {
-            const newdata = await WaterLevelModel.findById(dbdata?._id)
-            return res.json(newdata);
+        
+        if (!dbdata) {
+            return res.status(500).json({ message: "data is not found" });
         }
-
-        // if not then create new entry
-        return res.status(500).json({ message: "data is not found" });
+        
+        // const newdata = await WaterLevelModel.findById(dbdata?._id)
+        return res.json(dbdata);
 
     } catch (error) {
         res.status(500).json({ "error": error.message });

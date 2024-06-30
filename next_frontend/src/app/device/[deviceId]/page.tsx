@@ -69,7 +69,7 @@ const Device = ({ params }: Props) => {
     }, [])
 
     return (
-        <div className=' bg-slate-400' style={{height:"100vh"}}>
+        <div className=' bg-slate-500' style={{height:"100vh"}}>
             <Navbar />
 
 

@@ -8,6 +8,10 @@ module.exports = {
                 destination: '/device/:path*',
             },
             {
+                source: '/api/auth/:path*',
+                destination: '/api/auth/:path*',
+            },
+            {
                 source: '/:path*',
                 // destination: 'http://localhost:3333/api/:path*',
                 destination: `${process.env.SERVERURL}/api/:path*`,
