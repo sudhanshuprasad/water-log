@@ -16,7 +16,7 @@ module.exports = async (req, res) => {
     try {
         //look for the serial number in db
         const dbdata = await redisclient.hSet(`slno:${slno}`, { ssid: `${ssid}`, password: `${password}` })
-        console.log(dbdata)
+        // console.log(dbdata)
         
         // const newdata = await WaterLevelModel.findById(dbdata?._id)
         return res.json(dbdata);

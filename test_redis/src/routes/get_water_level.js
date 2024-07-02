@@ -8,9 +8,9 @@ module.exports = async (req, res) => {
 
         //look for the serial number in db
         const dbdata = await redisclient.hGetAll(`slno:${slno}`)
-        console.log(dbdata)
+        // console.log(dbdata)
         //if found, update the entry
-        
+
         if (!dbdata) {
             return res.status(500).json({ message: "data is not found" });
         }
