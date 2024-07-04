@@ -18,8 +18,8 @@ module.exports = async (req, res) => {
         const dbdata = await redisclient.hSet(`slno:${slno}`, { ssid: `${ssid}`, password: `${password}` })
         // console.log(dbdata)
         
-        // const newdata = await WaterLevelModel.findById(dbdata?._id)
-        return res.json(dbdata);
+        const newData = await redisclient.hGetAll(`slno:${slno}`)
+        return res.json(newData);
 
         return res.status(500).json({ message: "data is not found" });
 
