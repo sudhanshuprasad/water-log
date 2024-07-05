@@ -58,8 +58,12 @@ const Device = ({ params }: Props) => {
             data = await getWaterlevel(params?.deviceId)
             // console.log("data: ",data)
             setWaterLevel(data?.lastLevel)
-            setLastOnline(data?.lastOnline)
             setPumpState(data?.pumpState)
+            if(typeof(data?.lastOnline) === "number"){
+                setLastOnline(`${new Date().toString()}`.substring(0,15))
+            }else{
+                setLastOnline(data?.lastOnline)
+            }
         }
 
         fetchData()

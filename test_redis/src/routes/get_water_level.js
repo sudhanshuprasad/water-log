@@ -14,12 +14,12 @@ module.exports = async (req, res) => {
         if (!dbdata) {
             return res.status(500).json({ message: "data is not found" });
         }
-        
+
         // const newdata = await WaterLevelModel.findById(dbdata?._id)
-        return res.json(dbdata);
+        return res.json({ ...dbdata, lastLevel: parseFloat(dbdata?.lastLevel), lastOnline: parseFloat(dbdata?.lastOnline) });
 
     } catch (error) {
         res.status(500).json({ "error": error.message });
     }
-    
+
 };
