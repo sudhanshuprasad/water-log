@@ -11,6 +11,7 @@
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
+    "@kinde-oss/kinde-auth-nextjs": "^2.3.3",
     "@mui/icons-material": "^5.15.19",
     "@mui/material": "^5.15.19",
     "@nextui-org/react": "^2.2.9",
