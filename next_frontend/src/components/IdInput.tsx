@@ -34,7 +34,7 @@ const IdInput = () => {
                     />
 
 <div className='text-center m-2'>
-            <Button onClick={()=>{router.push(`/devices/${slno}`)}} className='w-20 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
+            <Button onClick={()=>{router.push(`/device/${slno}`)}} className='w-20 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
                 Go
             </Button>
         </div>

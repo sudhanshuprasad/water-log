@@ -15,7 +15,7 @@ max_point=200
 
 #wifi credentials
 ssid="Hello"
-password="helloSudhanshu"
+password="sudhanshU"
 
 try:
     f=open('savedata.json', 'r')
@@ -307,7 +307,8 @@ while True:
                 utime.sleep(2)
 
             post_data = ujson.dumps({"slno":"1234", "lastLevel":water_percentage, "pumpState":pump.value()})
-            res=requests.post("https://dull-erin-donkey-garb.cyclic.app/water_level/1234",
+            #res=requests.post("https://dull-erin-donkey-garb.cyclic.app/water_level/1234",
+            res=requests.post("https://water-log-production-9a54.up.railway.app/api/water_level/1234",
                                 data=post_data,
                                 headers={
                                     'content-type': 'application/json',
@@ -329,4 +330,3 @@ while True:
     #print("Filtered: ",filtered_data)
     #print("Percentage: ",(filtered_data-min)/(max-min)*100)
     utime.sleep(0.1)
- 
