@@ -1,4 +1,5 @@
 "use client"
+import Save from '@/components/buttons/Save'
 import LastOnline from '@/components/LastOnline'
 import Navbar from '@/components/Navbar'
 import OffButton from '@/components/pump/OffButtom'
@@ -19,7 +20,7 @@ interface Data {
 }
 
 function valuetext(value: number) {
-    return `${value}°C`;
+    return `${value}%`;
 }
 
 const marks = [
@@ -87,6 +88,8 @@ const Device = ({ params }: Props) => {
                     <LastOnline lastOnline={lastOnline} />
                     <OnButton />
                     <OffButton />
+
+                    <Save deviceId={12345} />
 
                 </Grid>
 

@@ -6,6 +6,7 @@ import LastOnline from "../components/LastOnline";
 import Navbar from "@/components/Navbar";
 import { Button } from "@nextui-org/react";
 import { RegisterLink, LoginLink } from "@kinde-oss/kinde-auth-nextjs/components";
+import IdInput from "@/components/IdInput";
 
 
 export default function Home() {
@@ -18,62 +19,65 @@ export default function Home() {
   const [pumpState, setPumpState] = useState(false)
 
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    fetch(url, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-      }
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data)
-        setPumpState(data?.pumpState)
-        setWaterLevel(data?.lastLevel)
-        setLastOnline(data?.lastOnline)
-        // console.log(parseFloat(waterLevel.toFixed(2)))
-      })
-      .catch(error => console.error('Error:', error));
+  //   fetch(url, {
+  //     method: 'GET',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Access-Control-Allow-Origin': '*',
+  //     }
+  //   })
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       console.log(data)
+  //       setPumpState(data?.pumpState)
+  //       setWaterLevel(data?.lastLevel)
+  //       setLastOnline(data?.lastOnline)
+  //       // console.log(parseFloat(waterLevel.toFixed(2)))
+  //     })
+  //     .catch(error => console.error('Error:', error));
 
 
-    const timeoutId = setInterval(() => {
-      // console.log("Hello, World!");
+  //   const timeoutId = setInterval(() => {
+  //     // console.log("Hello, World!");
 
-      fetch(url, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-        }
-      })
-        .then(response => response.json())
-        .then(data => {
-          console.log(data)
-          setPumpState(data?.pumpState)
-          setWaterLevel(data?.lastLevel)
-          // console.log(parseFloat(waterLevel.toFixed(2)))
-        })
-        .catch(error => console.error('Error:', error));
-      // const data= getWaterLevel(1234)
-      // console.log("water level "+data)
-      // setWaterLevel(data)
+  //     fetch(url, {
+  //       method: 'GET',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Access-Control-Allow-Origin': '*',
+  //       }
+  //     })
+  //       .then(response => response.json())
+  //       .then(data => {
+  //         console.log(data)
+  //         setPumpState(data?.pumpState)
+  //         setWaterLevel(data?.lastLevel)
+  //         // console.log(parseFloat(waterLevel.toFixed(2)))
+  //       })
+  //       .catch(error => console.error('Error:', error));
+  //     // const data= getWaterLevel(1234)
+  //     // console.log("water level "+data)
+  //     // setWaterLevel(data)
 
-    }, 100000);
+  //   }, 100000);
 
-    return () => {
-      console.log("return use effect")
-      // clearInterval(timeoutId);
-    }
-  }, [setWaterLevel, setPumpState]);
+  //   return () => {
+  //     console.log("return use effect")
+  //     // clearInterval(timeoutId);
+  //   }
+  // }, [setWaterLevel, setPumpState]);
 
   return (
     <main className="items-center justify-between">
       <Navbar />
       <div>
-        <WaterMeter waterLevel={waterLevel || 0} />
-        <LastOnline lastOnline={lastOnline} />
+
+        <IdInput/>
+
+        {/* <WaterMeter waterLevel={waterLevel || 0} />
+        <LastOnline lastOnline={lastOnline} /> */}
 
         <div className="text-center m-5">
           <LoginLink>

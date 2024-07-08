@@ -10,6 +10,7 @@ import MuiAccordionSummary, {
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import Navbar from '@/components/Navbar';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ChangeWifiPassword from '@/components/ChangeWifiPassword';
 
 
 const Settings = () => {
@@ -33,35 +34,10 @@ const Settings = () => {
                         <Typography> Change WiFi Password </Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                        <div className='flex items-center justify-center mb-6'>
-
-                            <Stack
-                                component="form"
-                                sx={{
-                                    width: '25ch',
-                                }}
-                                spacing={2}
-                                noValidate
-                                autoComplete="off"
-                            >
-
-                                <TextField
-                                    label="Wifi Name (SSID)"
-                                    id="filled-hidden-label-small"
-                                    defaultValue="My WiFi"
-                                    variant="filled"
-                                />
-                                <TextField
-                                    label="Wifi Password"
-                                    id="filled-hidden-label-normal"
-                                    defaultValue="Password"
-                                    variant="filled"
-                                />
-                            </Stack>
-
-                        </div>
+                        <ChangeWifiPassword/>
                     </AccordionDetails>
                 </Accordion>
+
                 <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
                     <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
                         <Typography>Collapsible Group Item #2</Typography>
@@ -75,6 +51,7 @@ const Settings = () => {
                         </Typography>
                     </AccordionDetails>
                 </Accordion>
+                
                 <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
                     <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
                         <Typography>Collapsible Group Item #3</Typography>
@@ -88,38 +65,6 @@ const Settings = () => {
                         </Typography>
                     </AccordionDetails>
                 </Accordion>
-
-            </div>
-
-            <div className='flex items-center justify-center m-20'>
-
-                <Stack
-                    component="form"
-                    sx={{
-                        width: '25ch',
-                    }}
-                    spacing={2}
-                    noValidate
-                    autoComplete="off"
-                >
-
-                    <Typography>
-                        Change WiFi Password
-                    </Typography>
-
-                    <TextField
-                        label="Wifi Name (SSID)"
-                        id="filled-hidden-label-small"
-                        defaultValue="My WiFi"
-                        variant="filled"
-                    />
-                    <TextField
-                        label="Wifi Password"
-                        id="filled-hidden-label-normal"
-                        defaultValue="Password"
-                        variant="filled"
-                    />
-                </Stack>
 
             </div>
 
