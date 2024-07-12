@@ -1,3 +1,4 @@
+'use client'
 import { ChangeEvent, useState } from 'react'
 import Drawer from '@mui/material/Drawer';
 import AppBar from '@mui/material/AppBar';
