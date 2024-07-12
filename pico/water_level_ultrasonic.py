@@ -15,7 +15,7 @@ max_point=200
 
 #wifi credentials
 ssid="Hello"
-password="helloSudhanshu"
+password="sudhanshU"
 
 try:
     f=open('savedata.json', 'r')
@@ -30,7 +30,20 @@ try:
             #f.write('\n')
         
 except:
-    print("Error! Could not save")
+    print("Error! Could not read saved data")
+
+
+try:
+    f=open('wifidata.json', 'r')
+    data=f.read()
+    #print(ujson.loads(data)["min"])
+    f.close()
+    ssid=ujson.loads(data)["ssid"]
+    #print(ujson.loads(data)["ssid"])
+    password=ujson.loads(data)["password"]
+        
+except:
+    print("Error! Could not read saved wifi data")
 
 
 pump = Pin(15, Pin.OUT)
@@ -189,11 +202,27 @@ def connect_to_wifi():
 
 #connect_to_wifi()
 
+def reset_wifi():
+    if(button5.value()):
+        print("reset wifi")
+        try:
+            with open('wifidata.json', 'w') as f:
+                ujson.dump({
+                "ssid":"Hello",
+                "password":'sudhanshU'
+                },f)
+                
+        except:
+            print("Error! Could not save")
+            
+    else:
+        print("press buttom 5 to reset wifi")
+
 button1.irq(trigger= Pin.IRQ_FALLING, handler=on_button)
 button2.irq(trigger= Pin.IRQ_FALLING, handler=off_button)
-# button3.irq(trigger= Pin.IRQ_FALLING, handler=calibrate_min)
+button3.irq(trigger= Pin.IRQ_FALLING, handler=reset_wifi)
 # button4.irq(trigger= Pin.IRQ_FALLING, handler=calibrate_max)
-# button5.irq(trigger= Pin.IRQ_FALLING, handler=new_off)
+# button6.irq(trigger= Pin.IRQ_FALLING, handler=new_off)
 
 #_thread.start_new_thread(connect_to_wifi, ())
 
@@ -307,15 +336,34 @@ while True:
                 utime.sleep(2)
 
             post_data = ujson.dumps({"slno":"1234", "lastLevel":water_percentage, "pumpState":pump.value()})
-            res=requests.post("https://dull-erin-donkey-garb.cyclic.app/water_level/1234",
+            #res=requests.post("https://dull-erin-donkey-garb.cyclic.app/water_level/1234",
+            res=requests.post("https://water-log-production-9a54.up.railway.app/api/water_level/1234",
                                 data=post_data,
                                 headers={
                                     'content-type': 'application/json',
                                     })
             
             print(res.text)
+            
+            obj = ujson.loads(res.text)
+            
+            if(obj["ssid"] and obj["password"]):
+                if(ssid != obj['ssid'] or password != obj['password']):
+                    print("updating wifi password")
+                    try:
+                        with open('wifidata.json', 'w') as f:
+                            ujson.dump({
+                            "ssid":obj['ssid'],
+                            "password":obj['password']
+                            },f)
+                
+                    except:
+                        print("Error! Could not save")
+        
+                
+            
             print("Level detected, notification sent")
-            utime.sleep(5)
+            utime.sleep(50)
         except:
             print("error in post request")
             #wlan.connect("Hello","helloSudhanshu")
@@ -329,4 +377,3 @@ while True:
     #print("Filtered: ",filtered_data)
     #print("Percentage: ",(filtered_data-min)/(max-min)*100)
     utime.sleep(0.1)
- 

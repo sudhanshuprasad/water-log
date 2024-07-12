@@ -1,7 +1,8 @@
+'use client'
 import { Button, Stack, TextField } from '@mui/material'
 import React, { useState } from 'react'
 import SaveIcon from '@mui/icons-material/Save';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 const IdInput = () => {
 
@@ -28,16 +29,16 @@ const IdInput = () => {
                     <TextField
                         label="Device Id"
                         id="filled-hidden-label-small"
-                        defaultValue="12345"
+                        placeholder='12345'
                         variant="filled"
-                        onChange={(e)=>{setSlno(e.target.value);}}
+                        onChange={(e) => { setSlno(e.target.value); }}
                     />
 
-<div className='text-center m-2'>
-            <Button onClick={()=>{router.push(`/devices/${slno}`)}} className='w-20 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
-                Go
-            </Button>
-        </div>
+                    <div className='text-center m-2'>
+                        <Button onClick={() => { router.push(`/device/${slno}`) }} className='w-20 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
+                            Go
+                        </Button>
+                    </div>
 
                 </Stack>
 
