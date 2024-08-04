@@ -8,6 +8,10 @@ module.exports = {
                 destination: '/device/:path*',
             },
             {
+                source: '/profile/:path*',
+                destination: '/profile/:path*',
+            },
+            {
                 source: '/api/auth/:path*',
                 destination: '/api/auth/:path*',
             },

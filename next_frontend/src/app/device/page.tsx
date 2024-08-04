@@ -7,10 +7,10 @@ const DeviceHome = () => {
         <>
             <Navbar />
             <div className='flex items-center justify-center h-screen'>
-                <h1 className=''>
+                <h1 className='justify-center items-center'>
                     Please go to and scan the QR on your device
                     <br />
-                    OR
+                    <div className='items-center'>OR</div>
                     <br />
                     <IdInput />
                 </h1>

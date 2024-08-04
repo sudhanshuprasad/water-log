@@ -47,11 +47,6 @@ const Device = ({ params }: Props) => {
     const [waterLevel, setWaterLevel] = useState(0)
     const [lastOnline, setLastOnline] = useState("Never Online")
     const [pumpState, setPumpState] = useState(false)
-    const [value, setValue] = useState<number[]>([20, 37]);
-
-    const handleChange = (event: Event, newValue: number | number[]) => {
-        setValue(newValue as number[]);
-    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -110,14 +105,6 @@ const Device = ({ params }: Props) => {
 
             </Grid>
 
-
-            {/* <Slider
-                getAriaLabel={() => 'Tank range'}
-                value={value}
-                onChange={handleChange}
-                valueLabelDisplay="auto"
-                getAriaValueText={valuetext}
-            /> */}
         </div>
     )
 }

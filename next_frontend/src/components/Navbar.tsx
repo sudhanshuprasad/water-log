@@ -1,5 +1,7 @@
 'use client'
-import { ChangeEvent, useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
+import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
 import Drawer from '@mui/material/Drawer';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -11,16 +13,13 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import DrawerList from './DrawerList';
+import Link from 'next/link';
 
 const Navbar = () => {
 
-    const [auth, setAuth] = useState(true);
+    const [auth, setAuth] = useState(false);
     const [open, setOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
-    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setAuth(event.target.checked);
-    };
 
     const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
@@ -33,6 +32,25 @@ const Navbar = () => {
     const toggleDrawer = (newOpen: boolean) => () => {
         setOpen(newOpen);
     };
+
+    const handleProfile = () => {
+        handleClose();
+
+    }
+
+    // const authenticate = async()=>{
+    //     const { isAuthenticated } = getKindeServerSession();
+    //     const isUserAuthenticated = await isAuthenticated();
+    //     setAuth(isUserAuthenticated)
+    // }
+
+    const { isAuthenticated, isLoading, user } = useKindeBrowserClient();
+
+    useEffect(() => {
+        // authenticate()
+        setAuth(isAuthenticated?true:false);
+        // console.log("is authenticated ",isAuthenticated);
+    }, [isAuthenticated])
 
     return (
         <div>
@@ -88,8 +106,9 @@ const Navbar = () => {
                                     open={Boolean(anchorEl)}
                                     onClose={handleClose}
                                 >
-                                    <MenuItem onClick={handleClose}>Profile</MenuItem>
+                                    <Link href={'/profile'}><MenuItem onClick={() => { handleProfile() }}>{user?.given_name}'s Profile</MenuItem></Link>
                                     <MenuItem onClick={handleClose}>My account</MenuItem>
+                                    <MenuItem onClick={handleClose}><LogoutLink>Log out</LogoutLink></MenuItem>
                                 </Menu>
                             </div>
                         )}

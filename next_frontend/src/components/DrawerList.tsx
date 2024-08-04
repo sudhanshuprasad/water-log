@@ -35,7 +35,7 @@ const DrawerList = ({ setDrawer }: Props) => {
                         </ListItem>
                     </Link>
 
-                    {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+                    {['Notifications', 'Starred', 'Send feedback', 'Saved devices'].map((text, index) => (
                         <ListItem key={text} disablePadding>
                             <ListItemButton>
                                 <ListItemIcon>
